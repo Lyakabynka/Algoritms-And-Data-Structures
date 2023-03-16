@@ -1,7 +1,26 @@
 #include <iostream>
 #include <algorithm>
+#include <time.h>
+#include <chrono>
+#include <random>
 
 using namespace std;
+
+void generateRandomArray(int arr[], int n, int max)
+{
+    for(int i = 0; i<n; i++)
+    {
+        arr[i] = rand()%max;
+    }
+}
+void printArray(int arr[], int n)
+{
+    for(int i = 0; i<n; i++)
+    {
+        cout << arr[i] << ' ';
+    }
+    cout << endl;
+}
 
 void bubbleSort(int arr[], int n)
 {
@@ -67,42 +86,96 @@ void heapSort(int arr[], int n)
     }
 }
 
+int LeftChild(int i)
+{
+    return i*2 + 1;
+}
+int RightChild(int i)
+{
+    return i*2+2;
+}
+int Parent(int i)
+{
+    return i/2;
+}
+
 int leafSearch(int a[], int i, int end)
 {
     int j = i;
-    int LeftChild = j*2;
-    int RightChild = j*2 + 1;
-    while(RightChild <= end)
-    {
-        if(a[RightChild] > a[LeftChild])
-            j = RightChild;
-        else
-            j = LeftChild;
+    while(RightChild(j) <= end){
+        if (a[RightChild(j)] > a[LeftChild(j)]){
+            j = RightChild(j);
+        }
+        else{
+            j = LeftChild(j);
+        }
     }
-    if(LeftChild <= end)
-        j = LeftChild;
+    if (LeftChild(j) <= end){
+        j = LeftChild(j);
+    }
     return j;
 }
-
-void siftDown(int a[], int i, int end)
+void shiftDown(int a[], int i, int end)
 {
-    int j = leafSearch(a,i,end);
-    while(a[i] > a[j])
-        j = j/2;
+    int j = leafSearch(a, i, end);
+    while(a[i] > a[j]){
+        j = Parent(j);
+    }
     int x = a[j];
     a[j] = a[i];
-    while(j>i)
-    {
-        swap(x,a[j/2]);
-        j = j/2;
+    while (j > i){
+        swap(x, a[Parent(j)]);
+        j = Parent(j);
+    }
+}
+void heapSort_BottomUp(int arr[], int N)
+{
+    for (int i = N/2 - 1; i >= 0; i--){
+        heapify(arr, N, i);
+    }
+    // One by one extract an element
+    // from heap
+    for (int i = N - 1; i > 0; i--) {
+        // Move current root to end
+        swap(arr[0], arr[i]);
+        shiftDown(arr, 0, i-1);
     }
 }
 
 int main()
 {
-    int arr[10] = {5,1,7,1,3,7,2,47,78,1};
+    chrono::time_point<chrono::system_clock> start, end;
+    chrono::duration<double> elapsed_seconds;
 
-    siftDown(arr,0,10);
+    srand(time(0));
+
+    for (int n = 0; n < 500; n++)
+    {
+        int* arr = new int[n];
+        generateRandomArray(arr, n, 10);
+
+        start = chrono::system_clock::now();
+        heapSort_BottomUp(arr, n);
+        end = chrono::system_clock::now();
+
+        elapsed_seconds = end - start;
+        cout << elapsed_seconds.count() << endl;
+        delete[] arr;
+    }
+    cout << endl << endl;
+    for (int n = 0; n < 500; n++)
+    {
+        int* arr = new int[n];
+        generateRandomArray(arr, n, 10);
+
+        start = chrono::system_clock::now();
+        heapSort(arr, n);
+        end = chrono::system_clock::now();
+
+        elapsed_seconds = end - start;
+        cout << elapsed_seconds.count() << endl;
+        delete[] arr;
+    }
 
     return 0;
 }
