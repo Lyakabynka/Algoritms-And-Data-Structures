@@ -36,18 +36,22 @@ void bubbleSort(int arr[], int n)
             {
                 swap(arr[j], arr[j + 1]);
 
-                // indicates that the swap happened
+                // indicates that the swap happened       
                 swapped = true;
             }
         }
 
-        // if no elements were swapped, thus array is sorted and no need to continue
+        // if no elements were swapped, the array is sorted and no need to continue
         if(swapped == false) break;
     }
         // basically in each iteration of 'i' it places the largest element of 0..n-i-1
-        // to the n-i-1 and decrements 'i'
+        // to the n-i-1 and decrements size in the inner loop ( j < n - i - 1 )
 }
-
+void buildmaxheap(int arr[], int n)
+{
+    for (int i = (n-1) / 2; i >= 0; i--)
+        heapify(arr, n, i);
+}
 void heapify(int arr[], int n, int i)
 {
     int largest = i; // Initialize largest as root Since we are using 0 based indexing
