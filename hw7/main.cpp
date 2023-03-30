@@ -8,12 +8,6 @@
 
 using namespace std;
 
-enum Partition
-{
-    Lomoto,
-    Hoare,
-    MedianOfThree
-};
 
 void generateRandomArray(int arr[], int n, int max)
 {
@@ -54,14 +48,14 @@ int Hoare_Partition(int arr[], int start, int end)
 
     while(true)
     {
-        //finding value from the left side greater than pivot
+        //finding index of the first value from the left side greater than pivot
         do
         {
             i++;
         } while (arr[i] < pivot);
         
 
-        //finding value from the right side smaller than pivot
+        //finding index of the first value from the right side smaller than pivot
         do 
         {
             j--;
@@ -77,9 +71,9 @@ int Hoare_Partition(int arr[], int start, int end)
 }
 
 int medianOfThree(int arr[], int a, int b, int c) {
-    if ((arr[a] > arr[b]) ^ (arr[a] > arr[c])) 
+    if ((arr[a] > arr[b] && arr[a] < arr[c]) || (arr[a] < arr[b] && arr[a] > arr[c])) 
         return a;
-    else if ((arr[b] < arr[a]) ^ (arr[b] < arr[c])) 
+    else if ((arr[b] > arr[a] && arr[b] < arr[c]) || (arr[b] < arr[a] && arr[b] > arr[c])) 
         return b;
     else
         return c;
@@ -149,7 +143,6 @@ void Evaluate(void (*func)(int arr[], int start,int end))
 
 void Modified_Partition(int arr[], int start, int end, int& pivot11, int& pivot22)
 {
-
     int pivotsmaller, pivotlarger, ismall, ilarge;
     ismall = start;
     ilarge = start + 1;

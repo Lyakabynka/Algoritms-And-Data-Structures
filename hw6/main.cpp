@@ -47,11 +47,6 @@ void bubbleSort(int arr[], int n)
         // basically in each iteration of 'i' it places the largest element of 0..n-i-1
         // to the n-i-1 and decrements size in the inner loop ( j < n - i - 1 )
 }
-void buildmaxheap(int arr[], int n)
-{
-    for (int i = (n-1) / 2; i >= 0; i--)
-        heapify(arr, n, i);
-}
 void heapify(int arr[], int n, int i)
 {
     int largest = i; // Initialize largest as root Since we are using 0 based indexing
@@ -74,11 +69,15 @@ void heapify(int arr[], int n, int i)
         heapify(arr, n, largest);
     }
 }
+void buildmaxheap(int arr[], int n)
+{
+    for (int i = (n-1) / 2; i >= 0; i--)
+        heapify(arr, n, i);
+}
 void heapSort(int arr[], int n)
 {
     // Build heap (rearrange array)
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
+    buildmaxheap(arr,n);
  
     // One by one extract an element from heap
     for (int i = n - 1; i >= 0; i--) {
@@ -103,6 +102,7 @@ int Parent(int i)
     return i/2;
 }
 
+//finds the first element larger than the root
 int leafSearch(int a[], int i, int end)
 {
     int j = i;
@@ -153,29 +153,31 @@ int main()
 
     srand(time(0));
 
-    for (int n = 0; n < 500; n++)
+    // for (int n = 0; n < 500; n++)
+    // {
+    //     int* arr = new int[n];
+    //     generateRandomArray(arr, n, 10);
+
+    //     start = chrono::system_clock::now();
+    //     heapSort_BottomUp(arr, n);
+    //     end = chrono::system_clock::now();
+
+    //     elapsed_seconds = end - start;
+    //     cout << elapsed_seconds.count() << endl;
+    //     delete[] arr;
+    // }
+    // cout << endl << endl;
+    for (int n = 10; n < 20; n++)
     {
         int* arr = new int[n];
         generateRandomArray(arr, n, 10);
 
-        start = chrono::system_clock::now();
-        heapSort_BottomUp(arr, n);
-        end = chrono::system_clock::now();
-
-        elapsed_seconds = end - start;
-        cout << elapsed_seconds.count() << endl;
-        delete[] arr;
-    }
-    cout << endl << endl;
-    for (int n = 0; n < 500; n++)
-    {
-        int* arr = new int[n];
-        generateRandomArray(arr, n, 10);
-
+        printArray(arr,n);
         start = chrono::system_clock::now();
         heapSort(arr, n);
         end = chrono::system_clock::now();
 
+        printArray(arr,n);
         elapsed_seconds = end - start;
         cout << elapsed_seconds.count() << endl;
         delete[] arr;
