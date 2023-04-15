@@ -62,14 +62,17 @@ list_item<T>* linked_list<T>::get_tail() {
 // Used for the destructor.
 template <class T>
 void linked_list<T>::delete_head() {
+    //no elements
 	if(head == NULL) {
         return;
     }
+    //one element
     else if(head->next == NULL) {
     	delete head;
         head = NULL;
         tail = NULL;
     }
+    //multiple elements
     else {
         list_item<T> *current = head->next;
         delete head;
@@ -122,11 +125,7 @@ void linked_list<T>::print() {
     } else {
         list_item<T> *current = head;
         while(current != NULL) {
-            if(current->next != NULL) {
-                cout << current->value << " <=> ";
-            } else {
-                cout << current->value;
-            }
+            cout << current->value;
             current = current->next;
         }
     }

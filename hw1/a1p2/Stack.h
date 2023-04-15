@@ -39,7 +39,9 @@ Stack<T>::Stack()
 }
 
 template <class T>
-Stack<T>::~Stack() {}
+Stack<T>::~Stack() {
+   
+}
 
 template <class T>
 Stack<T>::Stack(const Stack<T>& stack)
@@ -115,5 +117,5 @@ T Stack<T>::back()
 template <class T>
 int Stack<T>::getNumEntries()
 {
-    return top;
+    return top+1;
 }

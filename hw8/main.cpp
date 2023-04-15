@@ -70,7 +70,7 @@ int count_occurences(int A[], int n, int k, int startval, int endval)
     int count;
     if(startval == 0)
     {
-        count = C[startval];
+        count = C[endval];
     }
     else
     {
@@ -107,6 +107,7 @@ void bucket_sort(float arr[], int n){
 
 vector<string> radix_sort(vector<string>& words) {
     // Get the maximum word length
+
     int max_length = 0;
     for (auto& w : words) {
         if (w.length() > max_length) {
@@ -130,6 +131,8 @@ vector<string> radix_sort(vector<string>& words) {
     for (auto& w : words) {
         w.erase(w.find_last_not_of(' ') + 1);
     }
+
+
 
     return words;
 }

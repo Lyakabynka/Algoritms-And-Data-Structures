@@ -6,6 +6,7 @@ int main()
 {
     //there is nothing to explain
 	vector<string> vec;
+
 	string s;
 	while(true)
 	{
@@ -15,7 +16,7 @@ int main()
 		vec.push_back(s);
 	}
 
-	for (size_t i = 0; i < vec.size(); i++)
+	for (int i = 0; i < vec.size(); i++)
 	{
 		cout << vec[i] << " ";
 	}

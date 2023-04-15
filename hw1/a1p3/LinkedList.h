@@ -15,13 +15,6 @@ struct list_item {
         this->value = the_value;
         this->next = NULL;
         this->prev = NULL;
-
-        s();
-        this->s();
-    }
-    void s()
-    {
-
     }
 };
 
